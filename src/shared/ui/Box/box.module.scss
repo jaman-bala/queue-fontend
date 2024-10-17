@@ -1,0 +1,54 @@
+.box {
+    display: flex;
+    padding: 10px 20px;
+    min-width: 30px;
+    min-height: 10px;
+    border-radius: 4px;
+
+    &.shadow {
+        box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    &.card {
+        background-color: #66c6ef;
+    }
+}
+.justifyStart {
+    justify-content: flex-start;
+}
+
+.justifyCenter {
+    justify-content: center;
+}
+
+.justifyEnd {
+    justify-content: flex-end;
+}
+
+.justifyBetween {
+    justify-content: space-between;
+}
+
+.alignStart {
+    align-items: flex-start;
+}
+
+.alignCenter {
+    align-items: center;
+}
+
+.alignEnd {
+    align-items: flex-end;
+}
+
+.directionRow {
+    flex-direction: row;
+}
+
+.directionColumn {
+    flex-direction: column;
+}
+
+.fullWidth {
+    width: 100%;
+}

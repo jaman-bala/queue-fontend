@@ -1,0 +1,22 @@
+.menuWrapper {
+    position: absolute;
+    left: -290px;
+    transition: all 0.3s ease-in-out;
+    z-index: 999;
+}
+
+.drawer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba($color: #000000, $alpha: 0.7);
+    display: none;
+    transition: all 0.3s ease-in-out;
+}
+
+.menuWrapper:hover {
+    left: 0;
+}
+.menuWrapper:hover + .drawer {
+    display: block;
+}

@@ -1,0 +1,60 @@
+@import url('./fonts.scss');
+@import url('./vars.scss');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'TildaSans', Arial, Helvetica, sans-serif !important;
+}
+
+html,
+body {
+    height: 100%;
+    font-size: 16px;
+    line-height: 1.5;
+    font-weight: 400;
+    font-smooth: antialiased;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    background-color: var(--light-color);
+    color: #333;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0.5em 0;
+    font-weight: 600;
+}
+
+p {
+    margin: 1em 0;
+}
+
+ul,
+ol {
+    padding-left: 1.5em;
+    margin: 1em 0;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}

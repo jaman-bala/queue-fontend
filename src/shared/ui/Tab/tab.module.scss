@@ -1,0 +1,33 @@
+.tab {
+    position: relative;
+    padding: 20px;
+    min-width: 120px;
+    font-size: 16px;
+    outline: none;
+    border: none;
+    background: none;
+    cursor: pointer;
+    &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 3px;
+        background-color: var(--secondary-color);
+        transition: width 0.3s ease-in-out;
+    }
+
+    &[data-selected]::after {
+        width: 100%;
+    }
+
+    &[data-selected] {
+        font-weight: 600;
+    }
+}
+
+.tabList {
+    margin-bottom: 30px;
+    margin-top: 20px;
+}

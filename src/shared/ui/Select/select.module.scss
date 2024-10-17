@@ -1,0 +1,83 @@
+.field {
+    &.fullWidth {
+        width: 100%;
+    }
+}
+
+.listOption {
+    padding: 10px 20px;
+    cursor: pointer;
+    &:hover {
+        background-color: var(--light-color-hovered);
+    }
+}
+
+.listButton {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    background-color: var(--light-color);
+    box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: space-between;
+    min-width: 250px;
+    align-items: center;
+    border-radius: 4px;
+    transition: rotate 0.2s ease;
+
+    &.fullWidth {
+        width: 100%;
+    }
+
+    &.loading {
+        color: var(--light-color-focus);
+        cursor: not-allowed;
+    }
+    &.disabled {
+        color: var(--light-color-focus);
+        cursor: not-allowed;
+    }
+
+    &.open .icon {
+        transition: rotate 0.2s ease;
+        rotate: 180deg;
+    }
+
+    &:hover {
+        box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.2);
+        transition: box-shadow 0.2s ease;
+    }
+    &:focus {
+        box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.2);
+        transition: box-shadow 0.2s ease;
+    }
+}
+
+.listboxOptions {
+    margin-top: 10px;
+    background-color: var(--light-color);
+    box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    min-width: 250px;
+    &.fullWidth {
+        width: 360px;
+    }
+}
+
+.icon {
+    width: 20px;
+    height: 20px;
+}
+
+.label {
+    font-size: 16px;
+    margin-bottom: 5px;
+    font-weight: 600;
+
+    &.loading {
+        color: var(--light-color-focus);
+    }
+    &.disabled {
+        color: var(--light-color-focus);
+    }
+}
