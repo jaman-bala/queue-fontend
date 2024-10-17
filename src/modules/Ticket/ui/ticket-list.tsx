@@ -11,6 +11,7 @@ import {
     updateInProgressTickets,
 } from '../model/inprogress-tickets-slice';
 import { socket } from '@shared/utils/socket';
+import { playNotificationSound } from '@shared/utils/speech';
 
 export const TicketList = () => {
     const { departmentId } = useAuth();
@@ -43,6 +44,7 @@ export const TicketList = () => {
         socket.on('ticket-calling-spect', (data) => {
             const { ticket, windowNumber } = data;
             dispatch(updateInProgressTickets({ ticket, windowNumber }));
+            playNotificationSound();
         });
         socket.on('ticket-in-progress-spectator', (data) => {
             const { ticket, windowNumber } = data;
@@ -63,6 +65,7 @@ export const TicketList = () => {
                     windowNumber: session.windowNumber,
                 }),
             );
+            playNotificationSound();
         });
         socket.on('specialist-available-spectator', (data) => {
             const { session } = data;

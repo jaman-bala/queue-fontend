@@ -9,6 +9,7 @@ import { Icon } from '@shared/ui/Icon';
 import LogOutIcon from '@shared/assets/icons/logout.svg';
 import cls from './menu.module.scss';
 import { getFormattedName } from '@shared/utils/string-helpers';
+import { playNotificationSound } from '@shared/utils/speech';
 
 export default function Menu() {
     const {
@@ -101,6 +102,11 @@ export default function Menu() {
                             />
                         )}
                     </Box>
+                    {role === 'spectator' && (
+                        <Button onClick={() => playNotificationSound()}>
+                            Звук
+                        </Button>
+                    )}
                 </Box>
                 {userId ? (
                     <Button

@@ -7,9 +7,9 @@ interface MenuItem {
 }
 
 export const MenuItem = (props: MenuItem) => {
-    const { title, value } = props;
+    const { title, value, ...otherProps } = props;
     return (
-        <Box sx={{ marginBottom: '10px' }}>
+        <Box sx={{ marginBottom: '10px' }} {...otherProps}>
             <Typography color="#4B4F51">{title}</Typography>
             <Typography fontSize={20} color="#fff" className={cls.textItem}>
                 {value}
