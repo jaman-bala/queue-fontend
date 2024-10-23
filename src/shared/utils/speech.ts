@@ -11,6 +11,6 @@ export function speakMessage(message: string) {
 }
 
 export function playNotificationSound() {
-    const audio = new Audio('/audio/notification.mp3');
+    const audio = new Audio('/audio/notification-sound.mp3');
     audio.play();
 }

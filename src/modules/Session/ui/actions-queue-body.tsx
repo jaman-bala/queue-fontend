@@ -54,6 +54,13 @@ export const ActionsQueueBody = () => {
         });
     };
 
+    const handleCallAgain = () => {
+        socket.emit('call-again', {
+            departmentId,
+            sessionId,
+        });
+    };
+
     console.log(ticket);
     console.log('hasTicket:', hasTicket);
     console.log('sessionStatus:', sessionStatus);
@@ -61,9 +68,9 @@ export const ActionsQueueBody = () => {
     if (sessionStatus === 'available') {
         content = (
             <Box className={cls.wrapper}>
-                {/* <Button disabled className={clsx(cls.button, cls.recall)}>
+                <Button disabled className={clsx(cls.button, cls.recall)}>
                     Позвать заново
-                </Button> */}
+                </Button>
                 <Button disabled className={clsx(cls.button, cls.start)}>
                     Начать консультацию
                 </Button>
@@ -77,9 +84,12 @@ export const ActionsQueueBody = () => {
     if (sessionStatus === 'calling') {
         content = (
             <Box className={cls.wrapper}>
-                {/* <Button className={clsx(cls.button, cls.recall)}>
+                <Button
+                    onClick={handleCallAgain}
+                    className={clsx(cls.button, cls.recall)}
+                >
                     Позвать заново
-                </Button> */}
+                </Button>
                 <Button
                     onClick={handleStartService}
                     className={clsx(cls.button, cls.start)}
@@ -128,10 +138,10 @@ export const ActionsQueueBody = () => {
     if (status === 'pending') {
         return (
             <Box className={cls.wrapper}>
-                {/* <Button
+                <Button
                     disabled
                     className={clsx(cls.button, cls.recall, cls.pending)}
-                ></Button> */}
+                ></Button>
                 <Button
                     disabled
                     className={clsx(cls.button, cls.start, cls.pending)}

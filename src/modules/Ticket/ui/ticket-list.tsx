@@ -77,10 +77,19 @@ export const TicketList = () => {
             const { windowNumber } = data;
             dispatch(deleteInProgressTicket({ windowNumber }));
         });
+        socket.on('call-again-spect', (data) => {
+            const { windowNumber, ticket } = data;
+            playNotificationSound();
+        });
 
         return () => {
             socket.off('ticket-calling-spect');
             socket.off('ticket-in-progress-spectator');
+            socket.off('specialist-available-spectator');
+            socket.off('logout-specialist-frontend');
+            socket.off('complete-ticket-spectator');
+            socket.off('ticket-calling-spectator');
+            socket.off('call-again-spect');
         };
     }, []);
 
