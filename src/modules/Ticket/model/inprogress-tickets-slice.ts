@@ -3,7 +3,8 @@ import type { QueueType, StatusTypes } from '@shared/types/queues-types';
 import { instance } from '@shared/utils/axios-instance';
 import { AxiosError } from 'axios';
 
-interface InProgressTicket extends QueueType {
+interface InProgressTicket {
+    ticketNumber: string;
     windowNumber: number;
     status: 'calling' | 'in-progress';
 }

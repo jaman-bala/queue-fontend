@@ -116,13 +116,15 @@ export const TicketList = () => {
         );
     }
 
+    console.log(tickets);
+
     if (success && tickets.length > 6) {
         return (
             <>
                 <Box className={cls.list}>
                     {tickets.slice(0, 5).map((item) => (
                         <TicketItem
-                            key={item._id}
+                            key={item.ticketNumber}
                             status={item.status}
                             windowNumber={item.windowNumber}
                             ticketNumber={item.ticketNumber}
@@ -133,7 +135,7 @@ export const TicketList = () => {
                 <Box className={cls.list}>
                     {tickets.slice(6, 11).map((item) => (
                         <TicketItem
-                            key={item._id}
+                            key={item.ticketNumber}
                             status={item.status}
                             windowNumber={item.windowNumber}
                             ticketNumber={item.ticketNumber}
@@ -148,7 +150,7 @@ export const TicketList = () => {
         <Box className={cls.list}>
             {tickets.map((item) => (
                 <TicketItem
-                    key={item._id}
+                    key={item.ticketNumber}
                     status={item.status}
                     windowNumber={item.windowNumber}
                     ticketNumber={item.ticketNumber}

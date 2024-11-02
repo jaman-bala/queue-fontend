@@ -33,9 +33,6 @@ export const CurrentQueueHeader = () => {
     );
     const dispatch: AppDispatch = useDispatch();
 
-    console.log('session:', session);
-    console.log('ticket:', ticket);
-
     useEffect(() => {
         dispatch(getCurrentTicket({ sessionId, departmentId }));
     }, [dispatch, sessionId, departmentId]);
