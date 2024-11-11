@@ -1,23 +1,30 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import type { QueueType, StatusTypes } from '@shared/types/queues-types';
+import type { StatusTypes } from '@shared/types/queues-types';
 import { instance } from '@shared/utils/axios-instance';
 import { AxiosError } from 'axios';
 
 interface InProgressTicket {
     _id: string;
+    sessionId: string;
     ticketNumber: string;
     windowNumber: number;
     status: 'calling' | 'in-progress';
 }
 
+interface Department {
+    _id: string;
+    name: string;
+}
+
 interface InitialStateType {
     tickets: InProgressTicket[];
+    departments: Department[];
     status: StatusTypes;
     error: unknown;
 }
 
 export const getInProgressQueues = createAsyncThunk<InProgressTicket[], string>(
-    'inprogressTickets/getInProgressQueues',
+    'ticketAdminSlice/getInProgressQueues',
     async (departmentId: string, thunkApi) => {
         const { rejectWithValue } = thunkApi;
         try {
@@ -41,13 +48,33 @@ export const getInProgressQueues = createAsyncThunk<InProgressTicket[], string>(
     },
 );
 
+export const getAllDepartments = createAsyncThunk<Department[]>(
+    'ticketAdminSlice/getAllDepartments',
+    async (_, thunkApi) => {
+        const { rejectWithValue } = thunkApi;
+        try {
+            const response = await instance.get(`departments`);
+
+            return response.data;
+        } catch (error) {
+            if (error instanceof AxiosError) {
+                console.log(error);
+                rejectWithValue(error.response?.data.message);
+            } else {
+                console.log(error);
+            }
+        }
+    },
+);
+
 const initialState: InitialStateType = {
     tickets: [],
+    departments: [],
     status: 'idle',
     error: undefined,
 };
 
-const inprogressTicketsSclice = createSlice({
+const ticketAdminSlice = createSlice({
     name: 'inprogressTickets',
     initialState,
     reducers: {
@@ -66,7 +93,7 @@ const inprogressTicketsSclice = createSlice({
                     windowNumber,
                 });
             }
-            state.tickets.sort((a, b) => (a.status === 'calling' ? -1 : 1));
+            state.tickets.sort((a) => (a.status === 'calling' ? -1 : 1));
         },
         deleteInProgressTicket(state, action) {
             const { windowNumber } = action.payload;
@@ -74,7 +101,7 @@ const inprogressTicketsSclice = createSlice({
                 (item) => item.windowNumber !== windowNumber,
             );
             state.tickets = newState;
-            state.tickets.sort((a, b) => (a.status === 'calling' ? -1 : 1));
+            state.tickets.sort((a) => (a.status === 'calling' ? -1 : 1));
         },
     },
     extraReducers: (builder) => {
@@ -99,10 +126,21 @@ const inprogressTicketsSclice = createSlice({
             state.status = 'failed';
             state.error = action.payload;
         });
+        builder.addCase(getAllDepartments.pending, (state) => {
+            state.status = 'pending';
+        });
+        builder.addCase(getAllDepartments.fulfilled, (state, action) => {
+            state.status = 'succeeded';
+            state.departments = action.payload;
+        });
+        builder.addCase(getAllDepartments.rejected, (state, action) => {
+            state.status = 'failed';
+            state.error = action.payload;
+        });
     },
 });
 
 export const { updateInProgressTickets, deleteInProgressTicket } =
-    inprogressTicketsSclice.actions;
+    ticketAdminSlice.actions;
 
-export default inprogressTicketsSclice.reducer;
+export default ticketAdminSlice.reducer;

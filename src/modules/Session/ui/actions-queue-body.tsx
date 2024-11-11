@@ -8,7 +8,7 @@ import useAuth from '@shared/hooks/useAuth';
 import { startLoading } from '../model/currentQueue';
 
 export const ActionsQueueBody = () => {
-    const { sessionId, departmentId, ticketsType } = useAuth();
+    const { userId, departmentId, ticketsType } = useAuth();
     const hasTicket = useSelector(
         (state: RootState) => state.currentQueue.noAvailableTicket,
     );
@@ -24,46 +24,39 @@ export const ActionsQueueBody = () => {
     const handleStartService = () => {
         dispatch(startLoading());
         socket.emit('start-service', {
-            sessionId,
+            userId,
             departmentId,
         });
     };
-
     const handleSkipTicket = () => {
         dispatch(startLoading());
         socket.emit('ticket-skip', {
-            sessionId,
+            userId,
             departmentId,
             ticketsType,
         });
     };
-
     const handleCompleteService = () => {
         dispatch(startLoading());
         socket.emit('complete-ticket', {
-            sessionId,
+            userId,
             departmentId,
         });
     };
     const handleNextTicket = () => {
         dispatch(startLoading());
         socket.emit('ticket-next', {
-            sessionId,
+            userId,
             departmentId,
             ticketsType,
         });
     };
-
     const handleCallAgain = () => {
         socket.emit('call-again', {
             departmentId,
-            sessionId,
+            userId,
         });
     };
-
-    console.log(ticket);
-    console.log('hasTicket:', hasTicket);
-    console.log('sessionStatus:', sessionStatus);
 
     if (sessionStatus === 'available') {
         content = (

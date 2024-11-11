@@ -12,6 +12,7 @@ import {
 } from '../model/inprogress-tickets-slice';
 import { socket } from '@shared/utils/socket';
 import { playNotificationSound } from '@shared/utils/speech';
+import session from 'redux-persist/es/storage/session';
 
 export const TicketList = () => {
     const { departmentId } = useAuth();
@@ -52,33 +53,36 @@ export const TicketList = () => {
             dispatch(updateInProgressTickets({ ticket, windowNumber }));
         });
         socket.on('complete-ticket-spectator', (data) => {
-            const { session } = data;
+            const { specialist } = data;
             dispatch(
-                deleteInProgressTicket({ windowNumber: session.windowNumber }),
+                deleteInProgressTicket({
+                    windowNumber: specialist.windowNumber,
+                }),
             );
         });
         socket.on('ticket-calling-spectator', (data) => {
-            const { ticket, session } = data;
+            const { ticket, windowNumber } = data;
             dispatch(
                 updateInProgressTickets({
                     ticket,
-                    windowNumber: session.windowNumber,
+                    windowNumber: windowNumber,
                 }),
             );
             playNotificationSound();
         });
         socket.on('specialist-available-spectator', (data) => {
-            const { session } = data;
+            const { specialist } = data;
             dispatch(
-                deleteInProgressTicket({ windowNumber: session.windowNumber }),
+                deleteInProgressTicket({
+                    windowNumber: specialist.windowNumber,
+                }),
             );
         });
         socket.on('logout-specialist-frontend', (data) => {
             const { windowNumber } = data;
             dispatch(deleteInProgressTicket({ windowNumber }));
         });
-        socket.on('call-again-spect', (data) => {
-            const { windowNumber, ticket } = data;
+        socket.on('call-again-spect', () => {
             playNotificationSound();
         });
 

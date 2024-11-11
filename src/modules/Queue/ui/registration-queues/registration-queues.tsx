@@ -39,16 +39,16 @@ export const RegistrationQueues = () => {
         socket.on('ticket-in-progress', (data) => {
             const { ticket, departmentName, hasQueues } = data;
             dispatch(removeTicket(ticket));
-            if (hasQueues) {
-                dispatch(
-                    setPrintData({
-                        ticket: ticket.ticketNumber,
-                        departmentName: departmentName,
-                        createdAt: formattedDate(ticket.createdAt),
-                    }),
-                );
-                navigate('/print');
-            }
+
+            dispatch(
+                setPrintData({
+                    ticket: ticket.ticketNumber,
+                    departmentName: departmentName,
+                    createdAt: formattedDate(ticket.createdAt),
+                }),
+            );
+            navigate('/print');
+
             dispatch(setLoading('succeeded'));
         });
 
@@ -65,6 +65,8 @@ export const RegistrationQueues = () => {
             ticketType,
         });
     };
+
+    console.log(departmentId);
 
     return (
         <Box

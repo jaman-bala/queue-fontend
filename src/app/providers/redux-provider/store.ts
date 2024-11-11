@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import lastQueueSlice from '@modules/Queue/model/lastQueueSlice';
 import inprogressTicketsSlice from '@modules/Ticket/model/inprogress-tickets-slice';
 import currentQueueSlice from '@modules/Session/model/currentQueue';
+import ticketAdminSlice from '@modules/Admin/model/ticket-admin';
 import storage from 'redux-persist/lib/storage';
 import { persistReducer, persistStore } from 'redux-persist';
 import { combineReducers } from 'redux';
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
     lastQueues: lastQueueSlice,
     inProgressTickets: inprogressTicketsSlice,
     currentQueue: currentQueueSlice,
+    ticketAdmin: ticketAdminSlice,
 });
 
 const persistConfig = {

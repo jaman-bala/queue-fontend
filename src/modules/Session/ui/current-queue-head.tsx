@@ -22,7 +22,7 @@ export const CurrentQueueHeader = () => {
     const hasTicket = useSelector(
         (state: RootState) => state.currentQueue.noAvailableTicket,
     );
-    const { sessionId, departmentId } = useAuth();
+    const { userId, departmentId } = useAuth();
     const ticket = useSelector((state: RootState) => state.currentQueue.ticket);
     const session = useSelector(
         (state: RootState) => state.currentQueue.session,
@@ -34,12 +34,12 @@ export const CurrentQueueHeader = () => {
     const dispatch: AppDispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getCurrentTicket({ sessionId, departmentId }));
-    }, [dispatch, sessionId, departmentId]);
+        dispatch(getCurrentTicket({ userId, departmentId }));
+    }, [dispatch, userId, departmentId]);
 
     useEffect(() => {
         socket.emit('join-department', departmentId);
-        socket.emit('join-session', sessionId);
+        socket.emit('join-session', userId);
         socket.on('ticket-in-progress-spec', (data) => {
             dispatch(endLoading());
             dispatch(startService());
@@ -49,17 +49,17 @@ export const CurrentQueueHeader = () => {
             dispatch(completeService());
         });
         socket.on('ticket-calling-spec', (data) => {
-            const { ticket, session } = data;
+            const { ticket, specialist } = data;
             dispatch(endLoading());
             dispatch(resetTimer());
-            dispatch(updateTicket({ ticket, session }));
+            dispatch(updateTicket({ ticket, specialist }));
         });
 
         socket.on('specialist-available-spec', (data) => {
-            const { session } = data;
+            const { specialist } = data;
             dispatch(endLoading());
             dispatch(resetTimer());
-            dispatch(updateSession({ session }));
+            dispatch(updateSession({ specialist }));
         });
 
         return () => {

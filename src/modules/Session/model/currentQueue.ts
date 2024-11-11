@@ -18,16 +18,16 @@ interface QueueResponse {
 }
 
 interface GetQueueParams {
-    sessionId: string;
+    userId: string;
     departmentId: string;
 }
 
 export const getCurrentTicket = createAsyncThunk<QueueResponse, GetQueueParams>(
     'currentQueue/getCurrentTicket',
-    async ({ sessionId, departmentId }, { rejectWithValue }) => {
+    async ({ userId, departmentId }, { rejectWithValue }) => {
         try {
             const response = await instance.get<QueueResponse>(
-                `/queues/specialist/${sessionId}`,
+                `/queues/specialist/${userId}`,
                 {
                     params: { departmentId },
                 },
@@ -79,12 +79,12 @@ const currentQueueSlice = createSlice({
         },
         updateTicket(state, action) {
             state.ticket = action.payload.ticket as QueueType;
-            state.session = action.payload.session;
-            state.sessionStatus = action.payload.session.status;
+            state.session = action.payload.specialist;
+            state.sessionStatus = action.payload.specialist.status;
         },
         updateSession(state, action) {
-            state.session = action.payload.session;
-            state.sessionStatus = action.payload.session.status;
+            state.session = action.payload.specialist;
+            state.sessionStatus = action.payload.specialist.status;
         },
     },
     extraReducers: (builder) => {
