@@ -1,6 +1,6 @@
 import { io } from 'socket.io-client';
 
-const URL = 'https://dev-queue.tsvs.kg';
+const URL = 'https://dev-test.tsvs.kg';
 
 export const socket = io(URL, {
     transports: ['websocket'],
